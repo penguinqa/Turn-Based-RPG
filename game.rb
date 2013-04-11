@@ -1,21 +1,33 @@
-hero_hp = 100
-hero_strength = 10
+hero = {
+  hp: 100,
+  strength: 10,
+  wisdom: 5,
+  defense: 1,
+  speed: 2,
+  luck: 0
+}
 
-enemy_hp = 100
-enemy_strength = 10
+enemy = {
+  hp: 100,
+  strength: 10,
+  wisdom: 5,
+  defense: 1,
+  speed: 2,
+  luck: 0
+}
 
 def attack(strength)
   return strength + rand(strength/10 + 2) - strength/10
 end
 
-until enemy_hp <= 0 or hero_hp <= 0
-  enemy_hp -= attack(hero_strength)
-  puts enemy_hp
-  hero_hp -= attack(enemy_strength)
-  puts hero_hp
+until enemy[:hp] <= 0 or hero[:hp] <= 0
+  enemy[:hp] -= attack(hero[:strength])
+  puts enemy[:hp]
+  hero[:hp] -= attack(enemy[:strength])
+  puts hero[:hp]
 end
 
-if enemy_hp <= 0
+if enemy[:hp] <= 0
   puts "You won the battle!"
 else
   puts "You lost, hit the gym!"
