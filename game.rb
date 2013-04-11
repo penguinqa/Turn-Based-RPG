@@ -8,7 +8,7 @@ def attack(strength)
   return strength + rand(strength/10 + 2) - strength/10
 end
 
-until enemy_hp == 0
+until enemy_hp <= 0
   enemy_hp -= attack(hero_strength)
   puts enemy_hp
 end
