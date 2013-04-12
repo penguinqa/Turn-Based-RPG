@@ -1,7 +1,7 @@
 require './functions.rb'
 
 hero = {
-  name: "Donald",
+  name: "Quinn",
   level: 1,
   exp: 0,
   max_hp: 100,
@@ -10,11 +10,12 @@ hero = {
   wisdom: 5,
   defense: 1,
   speed: 2,
-  luck: 0
+  luck: 0,
+  gender: "her"
 }
 
 enemy = {
-  name: "Gurlock",
+  name: "Josie",
   level: 1,
   max_hp: 30,
   hp: 30,
@@ -31,4 +32,4 @@ inventory = {
     x_potion: 1    
   }
 
-gauntlet(hero, enemy)
+gauntlet(hero, enemy, inventory)
