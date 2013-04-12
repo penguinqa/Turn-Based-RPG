@@ -1,4 +1,5 @@
 hero = {
+  name: "Donald",
   hp: 100,
   strength: 10,
   wisdom: 5,
@@ -8,6 +9,7 @@ hero = {
 }
 
 enemy = {
+  name: "Gurlock",
   hp: 100,
   strength: 10,
   wisdom: 5,
@@ -28,15 +30,27 @@ def run(player, enemy)
   end
 end
 
-until enemy[:hp] <= 0 or hero[:hp] <= 0
-  enemy[:hp] -= attack(hero[:strength])
-  puts enemy[:hp]
-  hero[:hp] -= attack(enemy[:strength])
-  puts hero[:hp]
+def battle(player, enemy)
+  if player[:speed] >= enemy[:speed]
+    until enemy[:hp] <= 0 or player[:hp] <= 0
+      enemy[:hp] -= attack(player[:strength])
+      puts "#{player[:name]} strikes #{enemy[:name]}! #{enemy[:name]} HP:#{enemy[:hp]}"
+      player[:hp] -= attack(enemy[:strength])
+      puts "#{enemy[:name]} strikes #{player[:name]}! #{player[:name]} HP:#{player[:hp]}"
+    end
+  else
+    until enemy[:hp] <= 0 or player[:hp] <= 0
+      player[:hp] -= attack(enemy[:strength])
+      puts "#{enemy[:name]} strikes #{player[:name]}! #{player[:name]} HP:#{player[:hp]}"
+      enemy[:hp] -= attack(player[:strength])
+      puts "#{player[:name]} strikes #{enemy[:name]}! #{enemy[:name]} HP:#{enemy[:hp]}"
+    end
+  end
+  if enemy[:hp] <= 0
+    puts "You won the battle!"
+  else
+    puts "You lost, hit the gym!"
+  end  
 end
 
-if enemy[:hp] <= 0
-  puts "You won the battle!"
-else
-  puts "You lost, hit the gym!"
-end
+battle(hero, enemy)
