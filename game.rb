@@ -1,15 +1,22 @@
 hero = {
   name: "Donald",
+  level: 1,
   hp: 100,
   strength: 10,
   wisdom: 5,
   defense: 1,
   speed: 2,
-  luck: 0
+  luck: 0,
+  inventory: {
+    potion: 3,
+    hi_potion: 1,
+    x_potion: 1    
+  }
 }
 
 enemy = {
   name: "Gurlock",
+  level: 1,
   hp: 100,
   strength: 10,
   wisdom: 5,
@@ -29,6 +36,17 @@ def run(player, enemy)
     return false
   end
 end
+
+def displayInventory(player)
+  player[:inventory].each { |item, quantity| puts "#{item} - stock:#{quantity}"}
+end
+
+def useItem(player)
+  displayInventory(player)
+  puts "Type the item you wish to use:"
+  choice = gets.chomp.to_sym
+  player[:inventory][choice] -= 1
+end  
 
 def battle(player, enemy)
   if player[:speed] >= enemy[:speed]
