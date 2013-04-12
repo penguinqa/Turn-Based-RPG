@@ -1,7 +1,30 @@
-def attack(attacker, victim)
-  damage = attacker[:strength] + (rand(attacker[:strength]) - attacker[:strength]/2) / 10
-  victim[:hp] -= damage
-  puts "#{attacker[:name]} strikes #{victim[:name]} for #{damage} points! #{victim[:name]} HP:#{victim[:hp]}"
+def attack(player, enemy)
+  damage = player[:strength] + (rand(player[:strength]) - player[:strength]/2) / 10
+  enemy[:hp] -= damage
+  puts "#{player[:name]} strikes #{enemy[:name]} for #{damage} points! #{enemy[:name]} HP:#{enemy[:hp]}"
+end
+
+def magic(player, enemy)
+  puts "Enter 1 to use Fire"
+  puts "Enter 2 to use Ice"
+  puts "Enter 3 to use Thunder"
+  print ">:"
+  spell = gets.chomp
+  damage = 5 * player[:wisdom]
+  case spell
+  when "1"
+    enemy[:hp] -= damage
+    puts "#{player[:name]} torches #{enemy[:name]} for #{damage} points! #{enemy[:name]} HP:#{enemy[:hp]}"
+  when "2"
+    enemy[:hp] -= damage
+    puts "#{player[:name]} freezes #{enemy[:name]} for #{damage} points! #{enemy[:name]} HP:#{enemy[:hp]}"
+  when "3"
+    enemy[:hp] -= damage
+    puts "#{player[:name]} electrocutes #{enemy[:name]} for #{damage} points! #{enemy[:name]} HP:#{enemy[:hp]}"
+  else
+    player[:hp] -= 5
+    puts "#{player[:name]} got tongue tied and the spell back-fired on player[:gender]! #{player[:name]} HP: #{player[:hp]}"
+  end
 end
 
 def run(player, enemy)
@@ -20,7 +43,9 @@ def useItem(inventory)
   displayItems(inventory)
   puts "Type the item you wish to use:"
   choice = gets.chomp.to_sym
-  inventory[choice] -= 1
+  unless inventory[choice] == nil
+    inventory[choice] -= 1
+  end
 end
 
 def reviveEnemy(enemy)
@@ -84,16 +109,16 @@ def displayStats(enemy)
   end
 end    
 
-def battle(player, enemy)
+def battle(player, enemy, inventory)
   if player[:speed] >= enemy[:speed]
     until enemy[:hp] <= 0 or player[:hp] <= 0
-      attack(player, enemy)
+      actions(player, enemy, inventory)
       attack(enemy, player)
     end
   else
     until enemy[:hp] <= 0 or player[:hp] <= 0
       attack(enemy, player)
-      attack(player, enemy)
+      actions(player, enemy, inventory)
     end
   end
   if enemy[:hp] <= 0
@@ -107,10 +132,37 @@ def battle(player, enemy)
   end  
 end
 
-def gauntlet(player, enemy)
+def actions(player, enemy, inventory)
+  puts "Enter 1 to Attack"
+  puts "Enter 2 to Use Magic"
+  puts "Enter 3 to Defend"
+  puts "Enter 4 to Use Items"
+  puts "Enter 5 to Run"
+  print ">:"
+  action = gets.chomp
+
+  case action
+  when "1"
+    attack(player, enemy)
+  when "2"
+    magic(player, enemy)
+  when "3"
+    #defend(player)
+  when "4"
+    useItem(inventory)
+  when "5"
+    run(player, enemy)
+  else
+    puts "Not an acceptable entry"
+  end
+end
+
+
+
+def gauntlet(player, enemy, inventory)
   wins = 0
   until player[:hp] <= 0
-    battle(player, enemy)
+    battle(player, enemy, inventory)
     displayStats(enemy)
     wins += 1
     puts "Hit enter to fight the next battle."
