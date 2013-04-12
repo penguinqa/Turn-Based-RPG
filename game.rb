@@ -6,12 +6,7 @@ hero = {
   wisdom: 5,
   defense: 1,
   speed: 2,
-  luck: 0,
-  inventory: {
-    potion: 3,
-    hi_potion: 1,
-    x_potion: 1    
-  }
+  luck: 0
 }
 
 enemy = {
@@ -25,6 +20,12 @@ enemy = {
   luck: 0
 }
 
+inventory = {
+    potion: 3,
+    hi_potion: 1,
+    x_potion: 1    
+  }
+
 def attack(strength)
   return strength + (rand(strength) - strength/2) / 10
 end
@@ -37,15 +38,15 @@ def run(player, enemy)
   end
 end
 
-def displayInventory(player)
-  player[:inventory].each { |item, quantity| puts "#{item} - stock:#{quantity}"}
+def displayItems(inventory)
+  inventory.each { |item, quantity| puts "#{item} - stock:#{quantity}"}
 end
 
-def useItem(player)
-  displayInventory(player)
+def useItem(inventory)
+  displayItems(inventory)
   puts "Type the item you wish to use:"
   choice = gets.chomp.to_sym
-  player[:inventory][choice] -= 1
+  inventory[choice] -= 1
 end  
 
 def battle(player, enemy)
