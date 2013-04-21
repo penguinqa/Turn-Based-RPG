@@ -18,7 +18,7 @@ hero = {
 }
 
 enemy = {
-  name: "Rosie",
+  name: "Orc",
   level: 1,
   max_hp: 40,
   hp: 40,
